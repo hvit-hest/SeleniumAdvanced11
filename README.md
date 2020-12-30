@@ -1,6 +1,6 @@
 # SeleniumHomeWork11
 
-mvn clean test -DUserRegistration -Pchrome (default)
+mvn -Dtest=UserRegistrationTest test -Pchrome (default)
 
 
 
