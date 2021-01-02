@@ -85,8 +85,7 @@ public class CreateAccountPage {
     public void fillUsersForm(AccountFormData accountFormData) {
 
         Wait<WebDriver> wait = new WebDriverWait(driverHere, 10);
-        wait.until(ExpectedConditions.
-                elementToBeClickable(driverHere.findElement(By.cssSelector("[name='tax_id']"))));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[name='tax_id']")));
 
         accountFormData.getData().entrySet().stream().forEach(data -> {
             String dataValue = data.getValue();
