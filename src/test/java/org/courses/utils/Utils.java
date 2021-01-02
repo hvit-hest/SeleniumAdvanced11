@@ -3,6 +3,8 @@ package org.courses.utils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.courses.testdata.MenuItemModel;
 
 import java.io.IOException;
@@ -13,6 +15,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -70,4 +73,27 @@ public class Utils {
 
         return firstPrice.compareTo(secondPrice);
     }
+    
+    public static String emailGenerator() {
+        String[] forMail = UUID.randomUUID().toString().split("-");
+        String topDomain = RandomStringUtils.randomAlphabetic(2,8);
+        return String.format("user%s@mail%s.%s", forMail[0],forMail[1], topDomain);
+    }
+
+    public static String nameGenerator() {
+        return StringUtils.capitalize(RandomStringUtils.randomAlphabetic(1,20).toLowerCase());
+    }
+
+    public static String addressGenerator() {
+        return String.format("%s %s %s %s",
+                RandomStringUtils.randomAlphanumeric(1, 15),
+                RandomStringUtils.randomAlphanumeric(1, 15),
+                RandomStringUtils.randomAlphanumeric(1, 15),
+                RandomStringUtils.randomAlphanumeric(1, 15));
+    }
+
+    public static String phoneGenerator() {
+        return String.format("+%s", RandomStringUtils.randomNumeric(8));
+    }
 }
+

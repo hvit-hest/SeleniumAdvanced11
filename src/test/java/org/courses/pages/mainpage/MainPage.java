@@ -8,6 +8,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
@@ -24,6 +27,9 @@ public class MainPage {
 
     @FindBy(xpath = "//aside//li/a[.='Logout']")
     private WebElement logoutButton;
+
+    @FindBy(xpath = "//a[contains(., 'New customer')]")
+    private WebElement newCustomerLink;
 
 
     public MainPage(WebDriver myPersonalDriver) {
@@ -46,13 +52,21 @@ public class MainPage {
         return driverHere.findElements(By.cssSelector("form[name='login_form']")).size() > 0;
     }
 
+    public boolean isLogoutButtonPresent() {
+        return driverHere.findElements(By.cssSelector("#box-account [href$='logout']")).size() > 0;
+    }
+
+
     public List<WebElement> getAllDuckProducts() {
         return duckProducts;
     }
 
     public void logout() {
-        if (!isUserLoginFormOpened()) {
-            logoutButton.click();
+        if (isLogoutButtonPresent()) {
+            Wait<WebDriver> wait = new WebDriverWait(driverHere, 10);
+            wait.until(ExpectedConditions.
+                    elementToBeClickable(driverHere.findElement(By.cssSelector("#box-account [href$='logout']"))));
+            driverHere.findElement(By.cssSelector("#box-account [href$='logout']")).click();
         }
     }
 
@@ -75,5 +89,9 @@ public class MainPage {
         if (getDucksWEs.size() > 0) {
             getDucksWEs.get(numberInList).click();
         }
+    }
+
+    public void clickNewCustomerLink() {
+        newCustomerLink.click();
     }
 }
